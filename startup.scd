@@ -44,11 +44,16 @@ CocoaMenuItem.addToMenu("Utils", "Open log file in orgmode", ["l", true, true], 
 	}.fork
 });
 
-//:rest
 Panes.activate;
+Panes.arrange2Panes;
 
 { Document.listener.front }.defer(0.5);
 
-//:developer specials - should not be on git because they create files that interfere with pull: 
 
-(Platform.userAppSupportDir ++ "/dev_only/*.scd").pathMatch do: _.load;
+
+(Platform.userAppSupportDir ++ "/startupOC/*").pathMatch do: { | p |
+	p.postln;
+ 	p.load;
+};
+
+s = Server.default.boot;
